@@ -1,9 +1,7 @@
 package hellojpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
+import javax.persistence.*;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -14,13 +12,16 @@ public class JpaMain {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
 
-
         try {
 
-            Member member = new Member();
-            member.setName("HelloC");
-            member.setId(3L);
-            em.persist(member);
+            List<Member> resultList = em.createQuery("select m from Member as m", Member.class)
+                    .setFirstResult(5)
+                    .setMaxResults(8)
+                    .getResultList();
+
+            for (Member member :resultList) {
+                System.out.println("member.getName() = " + member.getName());
+            }
 
             transaction.commit();
         } catch (Exception e) {
