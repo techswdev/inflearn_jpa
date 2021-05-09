@@ -18,8 +18,8 @@ public class JpaMain {
         try {
             
             Member member1 = em.find(Member.class, 1L);
-            System.out.println("member1.getId() = " + member1.getId());
-            
+            em.remove(member1);
+
             transaction.commit();
 
         } catch (Exception e) {
