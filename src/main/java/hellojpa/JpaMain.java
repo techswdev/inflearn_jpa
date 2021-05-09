@@ -16,12 +16,13 @@ public class JpaMain {
 
 
         try {
-            
-            Member member1 = em.find(Member.class, 1L);
-            em.remove(member1);
+
+            Member member = new Member();
+            member.setName("HelloC");
+            member.setId(3L);
+            em.persist(member);
 
             transaction.commit();
-
         } catch (Exception e) {
             transaction.rollback();
             e.printStackTrace();
